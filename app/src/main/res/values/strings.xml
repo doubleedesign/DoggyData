@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DoggyData</string>
+
+    <string-array name="species">
+        <item>Doggy</item>
+        <item>Kitty</item>
+    </string-array>
+</resources>
