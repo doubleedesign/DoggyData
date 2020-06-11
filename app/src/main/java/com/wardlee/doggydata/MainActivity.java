@@ -19,12 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Create the loader and check for internet connection
-        PetLoader loader = new PetLoader();
+        // Create the loader and check for internet connection before proceeding
+        PetLoader loader = new PetLoader(this);
         if(loader.isInternetAvailable(this)) {
             Log.d(TAG, "Internet connection is all good");
-            // TODO: Proceed 
+            loader.loadDogs();
         } else {
+            Log.d(TAG, "Problem with internet connection");
             loader.showLoadingError(this);
         }
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Method to run the search
-    public void runSearch() {
+    /*public void runSearch() {
         // TODO: Search function
-    }
+    }*/
 }
