@@ -30,7 +30,7 @@ public class Pet {
      * @param bredFor;
      * @param temperament
      */
-    public Pet(String name, int minWeight, int maxWeight, int minHeight, int maxHeight, int lifeSpanMin, int lifeSpanMax, String breedGroup, String origin, String bredFor; ArrayList<String> temperament) {
+    public Pet(String name, int minWeight, int maxWeight, int minHeight, int maxHeight, int lifeSpanMin, int lifeSpanMax, String breedGroup, String origin, String bredFor, ArrayList<String> temperament) {
         Name = name;
         MinWeight = minWeight;
         MaxWeight = maxWeight;
