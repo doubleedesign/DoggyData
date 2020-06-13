@@ -19,14 +19,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Create the loader and check for internet connection before proceeding
-        PetLoader loader = new PetLoader(this);
-        if(loader.isInternetAvailable(this)) {
+        // Create a connection check object
+        ConnectionCheck connectionCheck = new ConnectionCheck(this);
+
+        // Check for internet connection before proceeding
+        if(connectionCheck.isInternetAvailable(this)) {
             Log.d(TAG, "Internet connection is all good");
-            loader.loadDogs();
         } else {
             Log.d(TAG, "Problem with internet connection");
-            loader.showLoadingError(this);
+            connectionCheck.showLoadingError(this);
         }
 
         // Set up an adapter to grab the species spinner option values from the XML file
