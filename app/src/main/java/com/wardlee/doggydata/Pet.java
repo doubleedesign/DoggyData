@@ -12,7 +12,16 @@ public class Pet {
     private ArrayList<String> TemperamentTerms;
 
     /**
-     * Constructor
+     * Constructor with only the name, for dev purposes
+     * @param name
+     */
+    public Pet(String name) {
+        Name = name;
+    }
+
+
+    /**
+     * Constructor with base properties for all kinds of pets
      *
      * @param name
      * @param minWeight

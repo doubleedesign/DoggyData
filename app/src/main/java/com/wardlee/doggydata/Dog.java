@@ -9,6 +9,14 @@ public class Dog extends Pet {
     private String Purpose;
 
     /**
+     * Constructor with only the name, for dev purposes
+     * @param name
+     */
+    public Dog(String name) {
+        super(name);
+    }
+
+    /**
      * Constructor with only base Pet properties
      *
      * @param name
