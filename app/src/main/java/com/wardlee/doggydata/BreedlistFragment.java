@@ -125,14 +125,10 @@ public class BreedlistFragment extends Fragment {
                 }
             }
         },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Display error in toast
-                        Toast.makeText(thisContext, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        error -> {
+            // Display error in toast
+            Toast.makeText(thisContext, error.getMessage(), Toast.LENGTH_SHORT).show();
+        });
 
 
         // Create the request queue
