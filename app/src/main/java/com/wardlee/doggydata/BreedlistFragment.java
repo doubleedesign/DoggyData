@@ -1,7 +1,9 @@
 package com.wardlee.doggydata;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BreedlistFragment extends Fragment {
     // Tag for debugging
@@ -38,6 +43,8 @@ public class BreedlistFragment extends Fragment {
 
     // Other variable initialisations
     private RecyclerView thisRecyclerView;
+    private FragmentManager BreedFragmentManager;
+    private FragmentActivity thisFragmentActivity;
 
 
     /**
@@ -51,11 +58,17 @@ public class BreedlistFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
 
         // Find the fragment placeholder and bring it to the front
-        FrameLayout thisFragment = getActivity().findViewById(R.id.fragment_placeholder);
+        FrameLayout thisFragment = getActivity().findViewById(R.id.fragment_listPlaceholder);
         thisFragment.bringToFront();
 
         // Define the layout file for the fragment
         return inflater.inflate(R.layout.fragment_breedlist, parent, false);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        thisFragmentActivity = (FragmentActivity) activity;
+        super.onAttach(activity);
     }
 
     @Override
@@ -94,21 +107,103 @@ public class BreedlistFragment extends Fragment {
                     // Loop through the array
                     for (int i = 0; i < qty; i++) {
 
+                        // Initialise fields with default values
+                        String breedName = "";
+                        String origin = "";
+                        int id = 0;
+                        String[] weightValues;
+                        int MinWeight = 0;
+                        int MaxWeight = 0;
+                        String[] lifespanValues;
+                        int LifeSpanMin = 0;
+                        int LifeSpanMax = 0;
+                        ArrayList<String> TemperamentTerms = new ArrayList<String>();
+
                         // Get the JSON object of this dog
                         JSONObject dogObject = dogs.getJSONObject(i);
 
-                        // Get the data we want from the object
-                        String breedName = dogObject.getString("name");
+                        // Get the straightforward data from the object
+                        if (dogObject.has("name")) {
+                            breedName = dogObject.getString("name");
+                        }
+                        if (dogObject.has("origin")) {
+                            origin = dogObject.getString("origin");
+                        }
+                        if (dogObject.has("id")) {
+                            id = Integer.parseInt(dogObject.getString("id"));
+                        }
+
+                        // Get the weight from the object,
+                        // explode the string into an array
+                        // and use that to set the min and max weight variables
+                        // Also, account for only one value being set by assigning that value to both
+                        // and account for values being "NaN" in the dataset
+                        if (dogObject.has("weight")) {
+                            JSONObject weightsObject = dogObject.getJSONObject("weight");
+                            String weightsString = weightsObject.getString("metric");
+                            weightsString = weightsString.replace("–", "-"); // account for different dashes
+                            weightValues = weightsString.split("-");
+                            String value1 = weightValues[0].trim();
+
+                            if(!value1.equals("NaN")) {
+                                MinWeight = Integer.parseInt(weightValues[0].trim());
+                            }
+                            if (weightValues.length > 1) {
+                                String value2 = weightValues[1].trim();
+                                if(!value2.equals("NaN")) {
+                                    MaxWeight = Integer.parseInt(weightValues[1].trim());
+                                }
+                                else {
+                                    MaxWeight = MinWeight;
+                                }
+                            } else {
+                                MaxWeight = MinWeight;
+                            }
+                        }
+
+                        // Get the lifespan from the object,
+                        // remove the " years" suffix,
+                        // explode the remaining "x - y" string into an array
+                        // and use that to set the min and max lifespan variables
+                        if (dogObject.has("life_span")) {
+                            String lifeSpanString = dogObject.getString("life_span");
+                            lifeSpanString = lifeSpanString.replace(" Years years","").trim();
+                            lifeSpanString = lifeSpanString.replace(" years","").trim();
+                            lifeSpanString = lifeSpanString.replace("–", "-"); // account for different dashes
+                            lifespanValues = lifeSpanString.split("-");
+                            String value1 = lifespanValues[0].trim();
+
+                            if(!value1.equals("NaN")) {
+                                LifeSpanMin = Integer.parseInt(lifespanValues[0].trim());
+                            }
+                            if (lifespanValues.length > 1) {
+                                String value2 = lifespanValues[1].trim();
+                                if(!value2.equals("NaN")) {
+                                    LifeSpanMax = Integer.parseInt(lifespanValues[1].trim());
+                                }
+                                else {
+                                    LifeSpanMax = LifeSpanMin;
+                                }
+                            } else {
+                                LifeSpanMax = LifeSpanMin;
+                            }
+                        }
+
+                        // Get the temperament terms and explode the string into an ArrayList
+                        if (dogObject.has("temperament")) {
+                            String TemperamentTermsString = dogObject.getString("temperament");
+                            //TemperamentTerms = (ArrayList<String>) Arrays.asList(TemperamentTermsString.split(","));
+                        }
 
                         // Create a Dog object (our dog class object, not the JSON object)
-                        Dog thisDog = new Dog(breedName);
+                        Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
 
                         // Add this dog to the list that the RecyclerView will use
                         petList.add(thisDog);
                     }
 
                     // Create adapter, passing in the pet list
-                    BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext);
+                    BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext, thisFragmentActivity);
 
                     // Attach the adapter to the recyclerview to populate items
                     thisRecyclerView.setAdapter(petAdapter);

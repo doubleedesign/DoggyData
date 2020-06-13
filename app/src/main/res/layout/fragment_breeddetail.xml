@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    >
+
+    <!--Image-->
+    <ImageView
+        android:id="@+id/imageView_breedImage"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginBottom="5dp"
+        />
+
+    <!--The breed name-->
+    <TextView
+        android:id="@+id/textView_breedDetailTitle"
+        android:layout_below="@+id/imageView_breedImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        />
+
+    <!--The breed details-->
+    <LinearLayout
+        android:id="@+id/layout_DetailWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/textView_breedDetailTitle"
+        android:layout_marginTop="10dp"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Origin"
+                />
+            <TextView
+                android:id="@+id/textView_breedOrigin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Weight"
+                />
+            <TextView
+                android:id="@+id/textView_breedWeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Lifespan"
+                />
+            <TextView
+                android:id="@+id/textView_breedLifespan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--The API credit-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_DetailWrapper"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="30dp"
+        android:text="Powered by TheDogAPI.com"
+        android:textSize="12sp"
+        android:textColor="#999"
+        />
+
+</RelativeLayout>

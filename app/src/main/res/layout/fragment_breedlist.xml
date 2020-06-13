@@ -14,4 +14,12 @@
         android:background="#FFF"
         />
 
+    <!--Fragment placeholder to load the detail view into-->
+    <FrameLayout
+        android:id="@+id/fragment_detailPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true">
+    </FrameLayout>
+
 </RelativeLayout>

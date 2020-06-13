@@ -57,7 +57,7 @@ public class BreedlistFragmentLoader {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         // Replace the contents of the placeholder with this fragment
-        transaction.replace(R.id.fragment_placeholder, listfragment);
+        transaction.replace(R.id.fragment_listPlaceholder, listfragment);
 
         // Add an animation setting so the fragment nicely fades in/out of view
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

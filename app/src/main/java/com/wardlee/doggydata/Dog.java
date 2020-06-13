@@ -9,17 +9,9 @@ public class Dog extends Pet {
     private String Purpose;
 
     /**
-     * Constructor with only the name, for dev purposes
+     * Constructor with just base Pet properties
      * @param name
-     */
-    public Dog(String name) {
-        super(name);
-    }
-
-    /**
-     * Constructor with only base Pet properties
-     *
-     * @param name
+     * @param id
      * @param minWeight
      * @param maxWeight
      * @param lifeSpanMin
@@ -27,14 +19,15 @@ public class Dog extends Pet {
      * @param origin
      * @param temperament
      */
-    public Dog(String name, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
-        super(name, minWeight, maxWeight, lifeSpanMin, lifeSpanMax, origin, temperament);
+    public Dog(String name, int id, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
+        super(name, id, minWeight, maxWeight, lifeSpanMin, lifeSpanMax, origin, temperament);
     }
 
     /**
      * Constructor with all Dog properties
      *
      * @param name
+     * @param id
      * @param minWeight
      * @param maxWeight
      * @param minHeight
@@ -46,8 +39,8 @@ public class Dog extends Pet {
      * @param breedGroup
      * @param bredFor
      */
-    public Dog(String name, int minWeight, int maxWeight, int minHeight, int maxHeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament, String breedGroup, String bredFor) {
-        super(name, minWeight, maxWeight, lifeSpanMin, lifeSpanMax, origin, temperament);
+    public Dog(String name, int id, int minWeight, int maxWeight, int minHeight, int maxHeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament, String breedGroup, String bredFor) {
+        super(name, id, minWeight, maxWeight, lifeSpanMin, lifeSpanMax, origin, temperament);
         MinHeight = minHeight;
         MaxHeight = maxHeight;
         BreedGroup = breedGroup;
