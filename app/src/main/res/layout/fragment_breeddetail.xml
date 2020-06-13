@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
     >
 
     <!--Image-->
     <ImageView
         android:id="@+id/imageView_breedImage"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginBottom="5dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
         />
 
     <!--The breed name-->
@@ -24,6 +22,8 @@
         android:layout_height="wrap_content"
         android:textSize="28sp"
         android:textColor="@color/colorPrimary"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         />
 
     <!--The breed details-->
@@ -34,6 +34,8 @@
         android:orientation="vertical"
         android:layout_below="@+id/textView_breedDetailTitle"
         android:layout_marginTop="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         >
         <LinearLayout
             android:id="@+id/LinearLayout_breedOriginWrapper"
@@ -118,6 +120,8 @@
         android:text="Powered by TheDogAPI.com"
         android:textSize="12sp"
         android:textColor="#999"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         />
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.wardlee.doggydata;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +11,23 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,6 +36,7 @@ public class BreedDetailFragment extends Fragment {
     private static final String TAG = "BreedDetailFragment";
 
     Pet petObject;
+    Context thisContext;
 
     public BreedDetailFragment(Pet pet) {
         petObject = pet;
@@ -37,6 +51,7 @@ public class BreedDetailFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        thisContext = view.getContext();
 
         // The layout elements
         ImageView ImageField = view.findViewById(R.id.imageView_breedImage);
@@ -45,8 +60,6 @@ public class BreedDetailFragment extends Fragment {
         TextView OriginField = view.findViewById(R.id.textView_breedOrigin);
         TextView WeightField = view.findViewById(R.id.textView_breedWeight);
         TextView LifespanField = view.findViewById(R.id.textView_breedLifespan);
-
-        // TODO: Get an image from the API and populate the image field
 
         // Populate the text fields with the pet object values
         LabelField.setText(petObject.getName());
@@ -62,5 +75,47 @@ public class BreedDetailFragment extends Fragment {
             OriginWrapper.setVisibility(view.GONE);
         }
 
+        // Get an image from the API and populate the image field
+        String JSON_URL = "https://api.thedogapi.com/v1/images/search?breed_id=" + petObject.getApi_Id() + "&api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
+
+        // Create the request
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    // Get the JSON from the response
+                    JSONArray imageDetail = new JSONArray(response);
+                    JSONObject imageDetailResult = imageDetail.getJSONObject(0);
+
+                    // Get the image URL
+                    String imageURL = imageDetailResult.getString("url");
+
+                    // Load the image if one is returned
+                    if(!imageURL.isEmpty()) {
+                        Picasso.get()
+                                .load(imageURL)
+                                .fit()
+                                .centerCrop()
+                                .into(ImageField);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+        error -> {
+            // Display error in toast
+            Toast.makeText(thisContext, error.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+
+
+        // Create the request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(thisContext);
+
+        // Add the string request to request queue
+        requestQueue.add(stringRequest);
     }
 }

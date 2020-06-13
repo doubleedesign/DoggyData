@@ -225,7 +225,6 @@ public class BreedlistFragment extends Fragment {
             Toast.makeText(thisContext, error.getMessage(), Toast.LENGTH_SHORT).show();
         });
 
-
         // Create the request queue
         RequestQueue requestQueue = Volley.newRequestQueue(thisContext);
 
