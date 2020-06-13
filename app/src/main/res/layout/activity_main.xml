@@ -79,18 +79,34 @@
             android:layout_marginBottom="30dp"/>
 
 
-        <!-- The search button -->
-        <Button
-            android:id="@+id/button_search"
+        <!-- The search button, wrapped in a linear layout to prevent stacking issues -->
+        <LinearLayout
+            android:id="@+id/button_wrapper"
+            android:orientation="horizontal"
+            android:layout_below="@+id/editText_height"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="90dp"
+                android:layout_marginBottom="30dp"
+                android:onClick="runSearch"
+                android:text="Search" />
+        </LinearLayout>
+
+
+        <!--Fragment placeholder for the RecyclerView that holds the list of breeds-->
+        <FrameLayout
+            android:id="@+id/fragment_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editText_height"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="90dp"
-            android:layout_marginBottom="30dp"
-            android:onClick=""
-            android:text="Search" />
+            android:layout_alignParentStart="true">
+        </FrameLayout>
 
 
     </RelativeLayout>
