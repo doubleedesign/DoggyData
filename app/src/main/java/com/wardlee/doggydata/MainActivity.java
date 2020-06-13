@@ -1,17 +1,22 @@
 package com.wardlee.doggydata;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
     // Tag for debugging
     private static final String TAG = "MainActivity";
+
+    FragmentActivity thisActivity;
 
     // onCreate method, let's get this show on the road
     @Override
@@ -43,7 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Method to run the search
-    /*public void runSearch() {
-        // TODO: Search function
-    }*/
+    // TODO: Search function. For now this just loads all dog breeds, as a development step.
+    public void runSearch(View view) {
+        // Create the loader
+        BreedlistFragmentLoader loader = new BreedlistFragmentLoader(this);
+
+        // Load the fragment to show the breed list
+        FragmentManager BreedlistManager = this.getSupportFragmentManager();
+        loader.loadFragment(BreedlistManager);
+    }
 }
