@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Pet {
     private String Name;
+    private int Api_Id;
     private int MinWeight;
     private int MaxWeight;
     private int LifeSpanMin;
@@ -31,8 +32,9 @@ public class Pet {
      * @param origin
      * @param temperament
      */
-    public Pet(String name, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
+    public Pet(String name, int id, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
         Name = name;
+        Api_Id = id;
         MinWeight = minWeight;
         MaxWeight = maxWeight;
         LifeSpanMin = lifeSpanMin;
@@ -46,6 +48,10 @@ public class Pet {
      */
     public String getName() {
         return Name;
+    }
+
+    public int getApi_Id() {
+        return Api_Id;
     }
 
     public int getMinWeight() {
