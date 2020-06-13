@@ -28,11 +28,8 @@ public class MainActivity extends AppCompatActivity {
         ConnectionCheck connectionCheck = new ConnectionCheck(this);
 
         // Check for internet connection before proceeding
-        if(connectionCheck.isInternetAvailable(this)) {
-            Log.d(TAG, "Internet connection is all good");
-        } else {
-            Log.d(TAG, "Problem with internet connection");
-            connectionCheck.showLoadingError(this);
+        if(!connectionCheck.isInternetAvailable(this)) {
+            Log.e(TAG, "Problem with internet connection");
         }
 
         // Set up an adapter to grab the species spinner option values from the XML file
