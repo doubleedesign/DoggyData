@@ -41,6 +41,7 @@ public class BreedDetailFragment extends Fragment {
         // The layout elements
         ImageView ImageField = view.findViewById(R.id.imageView_breedImage);
         TextView LabelField = view.findViewById(R.id.textView_breedDetailTitle);
+        LinearLayout OriginWrapper = view.findViewById(R.id.LinearLayout_breedOriginWrapper);
         TextView OriginField = view.findViewById(R.id.textView_breedOrigin);
         TextView WeightField = view.findViewById(R.id.textView_breedWeight);
         TextView LifespanField = view.findViewById(R.id.textView_breedLifespan);
@@ -49,8 +50,17 @@ public class BreedDetailFragment extends Fragment {
 
         // Populate the text fields with the pet object values
         LabelField.setText(petObject.getName());
-        OriginField.setText(petObject.getOrigin());
         WeightField.setText(petObject.getMinWeight() + "-" + petObject.getMaxWeight() + "kg");
         LifespanField.setText(petObject.getMinLifespan() + "-" + petObject.getMaxLifespan() + " years");
+
+        // Check if origin field is set, if it isn't then hide the field and label
+        String origin = petObject.getOrigin();
+        if(!origin.isEmpty()) {
+            OriginField.setText(petObject.getOrigin());
+        }
+        else {
+            OriginWrapper.setVisibility(view.GONE);
+        }
+
     }
 }
