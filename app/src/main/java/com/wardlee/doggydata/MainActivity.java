@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to run the search
     // TODO: Search function. For now this just loads all dog breeds, as a development step.
+    // TODO: Check the spinner value to decide whether to search dogs or cats,
+    //       and pass that info to the loader
     public void runSearch(View view) {
         // Create the loader
         BreedlistFragmentLoader loader = new BreedlistFragmentLoader(this);
