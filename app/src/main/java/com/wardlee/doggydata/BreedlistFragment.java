@@ -282,17 +282,29 @@ public class BreedlistFragment extends Fragment {
                                 }
                             }
 
+                            Boolean temperamentMatch = false;
+                            if(!SearchCriteria.get("temperament").toString().isEmpty()) {
+                                ArrayList<String> searchTerms = (ArrayList<String>) SearchCriteria.get("temperament");
+                                ArrayList<String> thisPetTerms = new ArrayList<>(TemperamentTerms); // shallow copy - don't want to override the value of TemperamentTerms because it's used to create the pet object
+                                thisPetTerms.retainAll(searchTerms);
+                                if(searchTerms.size() > 0) {
+                                    temperamentMatch = true;
+                                }
+                            }
+
+
                             // Create a Pet object (our dog/cat class object, not the JSON object) if search criteria are met
                             // Then add this dog/cat to the list that the RecyclerView will use
                             // TODO: Allow for empty values
                             if(species.equals("Doggy")) {
-                                if(weightMatch && heightMatch) {
+                                if(weightMatch && heightMatch && temperamentMatch) {
                                     Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
                                     petList.add(thisDog);
                                 }
                             }
                             else if(species.equals("Kitty")) {
-                                if(weightMatch) {
+                                //Log.d(TAG, breedName + " " + weightMatch + " " + temperamentMatch);
+                                if(weightMatch && temperamentMatch) {
                                     Cat thisCat = new Cat(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
                                     petList.add(thisCat);
                                 }

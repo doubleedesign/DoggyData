@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.google.android.gms.vision.text.Line;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
     private EditText weightInput;
     private EditText heightInput;
     private LinearLayout heightWrapper;
+    private CheckBox checkboxLoyal;
+    private CheckBox checkboxIndependent;
+    private CheckBox checkboxPlayful;
+    private CheckBox checkboxActive;
+    private CheckBox checkboxIntelligent;
+    private CheckBox checkboxAffectionate;
 
     // onCreate method, let's get this show on the road
     @Override
@@ -65,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         // Assign the input fields (used for getting data)
         weightInput = findViewById(R.id.editText_weight);
         heightInput = findViewById(R.id.editText_height);
+        checkboxLoyal = findViewById(R.id.temperament_loyal);
+        checkboxIndependent = findViewById(R.id.temperament_independent);
+        checkboxPlayful = findViewById(R.id.temperament_playful);
+        checkboxActive = findViewById(R.id.temperament_active);
+        checkboxIntelligent = findViewById(R.id.temperament_intelligent);
+        checkboxAffectionate = findViewById(R.id.temperament_affectionate);
 
         // Add a listener for spinner change to show/hide layout elements according to breed
         speciesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -93,10 +108,34 @@ public class MainActivity extends AppCompatActivity {
         // Get the species selection from the spinner
         String species = (String) speciesSpinner.getSelectedItem();
 
-        // Get the search criteria and put them in a hashmap
-        Map<String, String> searchCriteria = new HashMap<String, String>();
+        // Hashmap to store the search criteria
+        Map<String, Object> searchCriteria = new HashMap<>();
+
+        // Add height and weight to the search criteria map
         searchCriteria.put("weight", weightInput.getText().toString());
         searchCriteria.put("height", heightInput.getText().toString());
+
+        // Build an ArrayList of checked temperament terms, add it to the search criteria
+        ArrayList<String> temperament = new ArrayList<String>();
+        if(checkboxLoyal.isChecked()) {
+            temperament.add("Loyal");
+        }
+        if(checkboxIndependent.isChecked()) {
+            temperament.add("Independent");
+        }
+        if(checkboxPlayful.isChecked()) {
+            temperament.add("Playful");
+        }
+        if(checkboxActive.isChecked()) {
+            temperament.add("Active");
+        }
+        if(checkboxIntelligent.isChecked()) {
+            temperament.add("Intelligent");
+        }
+        if(checkboxAffectionate.isChecked()) {
+            temperament.add("Affectionate");
+        }
+        searchCriteria.put("temperament", temperament);
 
         // Create the loader
         BreedlistFragmentLoader loader = new BreedlistFragmentLoader(this, species, searchCriteria);
