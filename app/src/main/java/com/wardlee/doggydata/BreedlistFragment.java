@@ -51,6 +51,7 @@ public class BreedlistFragment extends Fragment {
     private LinearLayout NoResultsMessage;
     private FragmentManager BreedFragmentManager;
     private FragmentActivity thisFragmentActivity;
+    private String JSON_URL;
 
 
     /**
@@ -114,7 +115,6 @@ public class BreedlistFragment extends Fragment {
     protected void loadPets(RecyclerView thisRecyclerView, String species) {
 
         // Set API request URL according to the selected species
-        String JSON_URL = "";
         if(species.equals("Doggy")) {
             JSON_URL = "https://api.thedogapi.com/v1/breeds?api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
         }
@@ -122,7 +122,7 @@ public class BreedlistFragment extends Fragment {
             JSON_URL = "https://api.thecatapi.com/v1/breeds?api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
         }
         
-        if(!JSON_URL.isEmpty()) {
+        if(JSON_URL != null) {
 
             // Create the request
             StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
