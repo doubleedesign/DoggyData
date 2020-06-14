@@ -88,7 +88,7 @@ public class BreedlistFragment extends Fragment {
             loadDogs(thisRecyclerView);
         }
         else if(SelectedSpecies.equals("Kitty")) {
-            Log.d(TAG, "Cats to be loaded");
+            loadCats(thisRecyclerView);
         }
 
         new Handler().postDelayed(() -> {
@@ -130,7 +130,7 @@ public class BreedlistFragment extends Fragment {
                         // Initialise fields with default values
                         String breedName = "";
                         String origin = "";
-                        int id = 0;
+                        String id = "";
                         String[] weightValues;
                         int MinWeight = 0;
                         int MaxWeight = 0;
@@ -150,7 +150,7 @@ public class BreedlistFragment extends Fragment {
                             origin = dogObject.getString("origin");
                         }
                         if (dogObject.has("id")) {
-                            id = Integer.parseInt(dogObject.getString("id"));
+                            id = dogObject.getString("id");
                         }
 
                         // Get the weight from the object,
@@ -220,6 +220,156 @@ public class BreedlistFragment extends Fragment {
 
                         // Add this dog to the list that the RecyclerView will use
                         petList.add(thisDog);
+                    }
+
+                    // Create adapter, passing in the pet list
+                    BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext, thisFragmentActivity);
+
+                    // Attach the adapter to the recyclerview to populate items
+                    thisRecyclerView.setAdapter(petAdapter);
+
+                    // Set layout manager to position the items
+                    thisRecyclerView.setLayoutManager(new LinearLayoutManager(thisContext));
+
+                    // Add a basic divider between the items
+                    thisRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+        error -> {
+            // Display error in toast
+            Toast.makeText(thisContext, error.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+
+        // Create the request queue
+        RequestQueue requestQueue = Volley.newRequestQueue(thisContext);
+
+        // Add the string request to request queue
+        requestQueue.add(stringRequest);
+    }
+
+
+    /**
+     * Method to load dog breeds from TheDogAPI.com using Volley
+     * Based on tutorial:
+     * @author Belal Khan
+     * @link https://www.simplifiedcoding.net/android-volley-tutorial-fetch-json/
+     */
+    protected void loadCats(RecyclerView thisRecyclerView) {
+        String JSON_URL = "https://api.thecatapi.com/v1/breeds?api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
+
+        // Create the request
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    // Get the JSON from the response
+                    JSONArray cats = new JSONArray(response);
+
+                    // Set how many to show (all of them)
+                    int qty = cats.length();
+
+                    // Loop through the array
+                    for (int i = 0; i < qty; i++) {
+
+                        // Initialise fields with default values
+                        String breedName = "";
+                        String origin = "";
+                        String id = "";
+                        String[] weightValues;
+                        int MinWeight = 0;
+                        int MaxWeight = 0;
+                        String[] lifespanValues;
+                        int LifeSpanMin = 0;
+                        int LifeSpanMax = 0;
+                        ArrayList<String> TemperamentTerms = new ArrayList<String>();
+
+                        // Get the JSON object of this dog
+                        JSONObject catObject = cats.getJSONObject(i);
+
+                        // Get the straightforward data from the object
+                        if (catObject.has("name")) {
+                            breedName = catObject.getString("name");
+                        }
+                        if (catObject.has("origin")) {
+                            origin = catObject.getString("origin");
+                        }
+                        if (catObject.has("id")) {
+                            id = catObject.getString("id");
+                        }
+
+                        // Get the weight from the object,
+                        // explode the string into an array
+                        // and use that to set the min and max weight variables
+                        // Also, account for only one value being set by assigning that value to both
+                        // and account for values being "NaN" in the dataset
+                        if (catObject.has("weight")) {
+                            JSONObject weightsObject = catObject.getJSONObject("weight");
+                            String weightsString = weightsObject.getString("metric");
+                            weightsString = weightsString.replace("–", "-"); // account for different dashes
+                            weightValues = weightsString.split("-");
+                            String value1 = weightValues[0].trim();
+
+                            if(!value1.equals("NaN")) {
+                                MinWeight = Integer.parseInt(weightValues[0].trim());
+                            }
+                            if (weightValues.length > 1) {
+                                String value2 = weightValues[1].trim();
+                                if(!value2.equals("NaN")) {
+                                    MaxWeight = Integer.parseInt(weightValues[1].trim());
+                                }
+                                else {
+                                    MaxWeight = MinWeight;
+                                }
+                            } else {
+                                MaxWeight = MinWeight;
+                            }
+                        }
+
+                        // Get the lifespan from the object,
+                        // remove the " years" suffix,
+                        // explode the remaining "x - y" string into an array
+                        // and use that to set the min and max lifespan variables
+                        if (catObject.has("life_span")) {
+                            String lifeSpanString = catObject.getString("life_span");
+                            lifeSpanString = lifeSpanString.replace(" Years years","").trim();
+                            lifeSpanString = lifeSpanString.replace(" years","").trim();
+                            lifeSpanString = lifeSpanString.replace("–", "-"); // account for different dashes
+                            lifespanValues = lifeSpanString.split("-");
+                            String value1 = lifespanValues[0].trim();
+
+                            if(!value1.equals("NaN")) {
+                                LifeSpanMin = Integer.parseInt(lifespanValues[0].trim());
+                            }
+                            if (lifespanValues.length > 1) {
+                                String value2 = lifespanValues[1].trim();
+                                if(!value2.equals("NaN")) {
+                                    LifeSpanMax = Integer.parseInt(lifespanValues[1].trim());
+                                }
+                                else {
+                                    LifeSpanMax = LifeSpanMin;
+                                }
+                            } else {
+                                LifeSpanMax = LifeSpanMin;
+                            }
+                        }
+
+                        // Get the temperament terms and explode the string into an ArrayList
+                        if (catObject.has("temperament")) {
+                            String TemperamentTermsString = catObject.getString("temperament");
+                            //TemperamentTerms = (ArrayList<String>) Arrays.asList(TemperamentTermsString.split(","));
+                        }
+
+                        // Create a Dog object (our dog class object, not the JSON object)
+                        Cat thisCat = new Cat(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
+
+                        // Add this dog to the list that the RecyclerView will use
+                        petList.add(thisCat);
                     }
 
                     // Create adapter, passing in the pet list

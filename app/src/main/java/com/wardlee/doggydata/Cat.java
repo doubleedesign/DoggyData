@@ -17,7 +17,7 @@ public class Cat extends Pet {
      * @param origin
      * @param temperament
      */
-    public Cat(String name, int id, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
+    public Cat(String name, String id, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
         super(name, id, minWeight, maxWeight, lifeSpanMin, lifeSpanMax, origin, temperament);
     }
 }

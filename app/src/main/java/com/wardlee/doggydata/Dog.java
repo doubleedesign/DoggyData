@@ -19,7 +19,7 @@ public class Dog extends Pet {
      * @param origin
      * @param temperament
      */
-    public Dog(String name, int id, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
+    public Dog(String name, String id, int minWeight, int maxWeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament) {
         super(name, id, minWeight, maxWeight, lifeSpanMin, lifeSpanMax, origin, temperament);
     }
 
@@ -39,7 +39,7 @@ public class Dog extends Pet {
      * @param breedGroup
      * @param bredFor
      */
-    public Dog(String name, int id, int minWeight, int maxWeight, int minHeight, int maxHeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament, String breedGroup, String bredFor) {
+    public Dog(String name, String id, int minWeight, int maxWeight, int minHeight, int maxHeight, int lifeSpanMin, int lifeSpanMax, String origin, ArrayList<String> temperament, String breedGroup, String bredFor) {
         super(name, id, minWeight, maxWeight, lifeSpanMin, lifeSpanMax, origin, temperament);
         MinHeight = minHeight;
         MaxHeight = maxHeight;
