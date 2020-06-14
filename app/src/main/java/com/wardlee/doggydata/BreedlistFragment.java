@@ -228,7 +228,7 @@ public class BreedlistFragment extends Fragment {
                         //Boolean heightMatch = false;
                         int searchWeight = Integer.parseInt(SearchCriteria.get("weight").toString());
                         //int searchheight = (int) SearchCriteria.get("height");
-                        if(MinWeight >= searchWeight && searchWeight <= MaxWeight) {
+                        if(searchWeight >= MinWeight && searchWeight <= MaxWeight) {
                             weightMatch = true;
                         }
 
@@ -391,7 +391,7 @@ public class BreedlistFragment extends Fragment {
                         // Check against search criteria
                         Boolean weightMatch = false;
                         int searchWeight = Integer.parseInt(SearchCriteria.get("weight").toString());
-                        if(MinWeight >= searchWeight && searchWeight <= MaxWeight) {
+                        if(searchWeight >= MinWeight && searchWeight <= MaxWeight) {
                             weightMatch = true;
                             Log.d(TAG, breedName + " is a match");
                         }
