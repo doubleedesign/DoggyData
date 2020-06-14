@@ -33,6 +33,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class BreedlistFragment extends Fragment {
@@ -260,7 +261,8 @@ public class BreedlistFragment extends Fragment {
                             // Get the temperament terms and explode the string into an ArrayList
                             if (petObject.has("temperament")) {
                                 String TemperamentTermsString = petObject.getString("temperament");
-                                //TemperamentTerms = (ArrayList<String>) Arrays.asList(TemperamentTermsString.split(","));
+                                TemperamentTermsString = TemperamentTermsString.replace(" ", ""); // strip whitespace
+                                TemperamentTerms = new ArrayList<String>(Arrays.asList(TemperamentTermsString.split(",")));
                             }
 
                             // Check against search criteria

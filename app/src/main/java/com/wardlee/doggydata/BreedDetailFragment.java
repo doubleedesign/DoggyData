@@ -68,6 +68,7 @@ public class BreedDetailFragment extends Fragment {
         TextView OriginField = view.findViewById(R.id.textView_breedOrigin);
         TextView WeightField = view.findViewById(R.id.textView_breedWeight);
         TextView LifespanField = view.findViewById(R.id.textView_breedLifespan);
+        TextView TemperamentField = view.findViewById(R.id.textView_temperament);
         TextView Credit = view.findViewById(R.id.textView_credit);
 
         // Populate the credit field and set the image request URL according to species
@@ -93,6 +94,11 @@ public class BreedDetailFragment extends Fragment {
         else {
             OriginWrapper.setVisibility(view.GONE);
         }
+
+        // Populate the temperament field
+        ArrayList<String> temperamentTerms = petObject.getTemperamentTerms();
+        String temperamentString = String.join(", ", temperamentTerms);
+        TemperamentField.setText(temperamentString);
 
         // Initially hide the image field (so the loading icon will show)
         ImageField.setVisibility(View.VISIBLE);
