@@ -148,9 +148,12 @@ public class BreedlistFragment extends Fragment {
                             String breedName = "";
                             String origin = "";
                             String id = "";
-                            String[] weightValues;
+                            String[] weightValues = null;
+                            String[] heightValues = null;
                             int MinWeight = 0;
                             int MaxWeight = 0;
+                            int MinHeight = 0;
+                            int MaxHeight = 0;
                             String[] lifespanValues;
                             int LifeSpanMin = 0;
                             int LifeSpanMax = 0;
@@ -198,6 +201,34 @@ public class BreedlistFragment extends Fragment {
                                 }
                             }
 
+                            // Get the height from the object,
+                            // explode the string into an array
+                            // and use that to set the min and max weight variables
+                            // Also, account for only one value being set by assigning that value to both
+                            // and account for values being "NaN" in the dataset
+                            if (petObject.has("height")) {
+                                JSONObject weightsObject = petObject.getJSONObject("height");
+                                String heightsString = weightsObject.getString("metric");
+                                heightsString = heightsString.replace("–", "-"); // account for different dashes
+                                heightValues = heightsString.split("-");
+                                String value1 = heightValues[0].trim();
+
+                                if(!value1.equals("NaN")) {
+                                    MinHeight = Integer.parseInt(heightValues[0].trim());
+                                }
+                                if (heightValues.length > 1) {
+                                    String value2 = heightValues[1].trim();
+                                    if(!value2.equals("NaN")) {
+                                        MaxHeight = Integer.parseInt(heightValues[1].trim());
+                                    }
+                                    else {
+                                        MaxHeight = MinHeight;
+                                    }
+                                } else {
+                                    MaxHeight = MinHeight;
+                                }
+                            }
+
                             // Get the lifespan from the object,
                             // remove the " years" suffix,
                             // explode the remaining "x - y" string into an array
@@ -241,23 +272,32 @@ public class BreedlistFragment extends Fragment {
                                 }
                             }
 
-                            if(species.equals("Doggy")) {
-                                //Boolean heightMatch = false;
-                                //int searchheight = (int) SearchCriteria.get("height");
+                            Boolean heightMatch = false;
+                            if(!SearchCriteria.get("height").toString().isEmpty()) {
+                                int searchHeight = Integer.parseInt(SearchCriteria.get("height").toString());
+                                if(searchHeight >= MinHeight && searchHeight <= MaxHeight) {
+                                    heightMatch = true;
+                                }
                             }
 
                             // Create a Pet object (our dog/cat class object, not the JSON object) if search criteria are met
-                            // Then add this dog to the list that the RecyclerView will use
-                            if(weightMatch) {
-                                if(species.equals("Doggy")) {
+                            // Then add this dog/cat to the list that the RecyclerView will use
+                            // TODO: Allow for empty values
+                            if(species.equals("Doggy")) {
+                                Log.d(TAG, weightMatch.toString());
+
+                                if(weightMatch && heightMatch) {
                                     Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
                                     petList.add(thisDog);
                                 }
-                                else if(species.equals("Kitty")) {
+                            }
+                            else if(species.equals("Kitty")) {
+                                if(weightMatch) {
                                     Cat thisCat = new Cat(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
                                     petList.add(thisCat);
                                 }
                             }
+
                         }
 
                         // If no results matched, then the pet list will be empty; show the no results message

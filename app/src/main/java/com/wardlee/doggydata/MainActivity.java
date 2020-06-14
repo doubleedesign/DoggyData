@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Method to run the search
-    // TODO: Search function. For now this just loads all breeds, as a development step.
     public void runSearch(View view) {
 
         // Get the species selection from the spinner
