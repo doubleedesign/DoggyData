@@ -230,9 +230,11 @@ public class BreedlistFragment extends Fragment {
 
                             // Check against search criteria
                             Boolean weightMatch = false;
-                            int searchWeight = Integer.parseInt(SearchCriteria.get("weight").toString());
-                            if(searchWeight >= MinWeight && searchWeight <= MaxWeight) {
-                                weightMatch = true;
+                            if(!SearchCriteria.get("weight").toString().isEmpty()) {
+                                int searchWeight = Integer.parseInt(SearchCriteria.get("weight").toString());
+                                if(searchWeight >= MinWeight && searchWeight <= MaxWeight) {
+                                    weightMatch = true;
+                                }
                             }
 
                             if(species.equals("Doggy")) {
