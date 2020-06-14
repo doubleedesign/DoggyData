@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -63,6 +64,14 @@ public class MainActivity extends AppCompatActivity {
     // Method to run the search
     // TODO: Search function. For now this just loads all breeds, as a development step.
     public void runSearch(View view) {
+
+        // Close the keyboard for a smoother user experience
+        // @ref https://stackoverflow.com/questions/3400028/close-virtual-keyboard-on-button-press
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
         // Get the species selection from the spinner
         String species = (String) speciesSpinner.getSelectedItem();
 
