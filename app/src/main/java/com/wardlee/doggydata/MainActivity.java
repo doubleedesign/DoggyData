@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     // Tag for debugging
     private static final String TAG = "MainActivity";
 
-    FragmentActivity thisActivity;
+    // Declare variables for the interface fields, for later use
+    private Spinner speciesSpinner;
 
     // onCreate method, let's get this show on the road
     @Override
@@ -38,19 +39,19 @@ public class MainActivity extends AppCompatActivity {
         speciesListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Find the species spinner and set it to use the unit list adapter
-        // Declare variables for the interface fields
-        Spinner speciesSpinner = findViewById(R.id.spinner_species);
+        speciesSpinner = findViewById(R.id.spinner_species);
         speciesSpinner.setAdapter(speciesListAdapter);
     }
 
 
     // Method to run the search
-    // TODO: Search function. For now this just loads all dog breeds, as a development step.
-    // TODO: Check the spinner value to decide whether to search dogs or cats,
-    //       and pass that info to the loader
+    // TODO: Search function. For now this just loads all breeds, as a development step.
     public void runSearch(View view) {
+        // Get the species selection from the spinner
+        String species = (String) speciesSpinner.getSelectedItem();
+
         // Create the loader
-        BreedlistFragmentLoader loader = new BreedlistFragmentLoader(this);
+        BreedlistFragmentLoader loader = new BreedlistFragmentLoader(this, species);
 
         // Load the fragment to show the breed list
         FragmentManager BreedlistManager = this.getSupportFragmentManager();

@@ -34,13 +34,15 @@ public class BreedlistFragmentLoader {
 
     // Variables to be passed in from the activity or fragment calling this
     private Context thisContext;
+    private String SelectedSpecies;
 
 
     /**
      * Constructor
      */
-    public BreedlistFragmentLoader(Context context) {
+    public BreedlistFragmentLoader(Context context, String species) {
         this.thisContext = context;
+        SelectedSpecies = species;
     }
 
 
@@ -50,8 +52,8 @@ public class BreedlistFragmentLoader {
      */
     protected BreedlistFragment loadFragment(FragmentManager fragmentManager) {
 
-        // Create a breed list fragment
-        BreedlistFragment listfragment = new BreedlistFragment(thisContext);
+        // Create a breed list fragment, passing in the selected species
+        BreedlistFragment listfragment = new BreedlistFragment(thisContext, SelectedSpecies);
 
         // Create a fragment transaction
         FragmentTransaction transaction = fragmentManager.beginTransaction();

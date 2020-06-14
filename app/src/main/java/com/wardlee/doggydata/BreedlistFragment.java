@@ -41,6 +41,7 @@ public class BreedlistFragment extends Fragment {
 
     // Variables to be passed in from the activity or fragment calling this
     private Context thisContext;
+    private String SelectedSpecies;
 
     // Other variable initialisations
     private RecyclerView thisRecyclerView;
@@ -51,8 +52,9 @@ public class BreedlistFragment extends Fragment {
     /**
      * Constructor
      */
-    public BreedlistFragment(Context context) {
+    public BreedlistFragment(Context context, String species) {
         thisContext = context;
+        SelectedSpecies = species;
     }
 
     @Override
@@ -82,7 +84,13 @@ public class BreedlistFragment extends Fragment {
         view.findViewById(R.id.rv_breeds).setVisibility(View.GONE);
 
         // Load dogs into the RecyclerView and show it after a short delay
-        loadDogs(thisRecyclerView);
+        if(SelectedSpecies.equals("Doggy")) {
+            loadDogs(thisRecyclerView);
+        }
+        else if(SelectedSpecies.equals("Kitty")) {
+            Log.d(TAG, "Cats to be loaded");
+        }
+
         new Handler().postDelayed(() -> {
             view.findViewById(R.id.rv_breeds).setVisibility(View.VISIBLE);
         }, 1000);
