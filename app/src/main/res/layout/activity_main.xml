@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spinner_species"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="15dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -134,13 +134,59 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!--Second row of criteria (temperament checkboxes)-->
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/layout_row2"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_below="@id/layout_row1"
+                app:flexWrap="wrap"
+                app:alignItems="flex_start"
+                app:alignContent="flex_start">
+
+                <CheckBox
+                    android:id="@+id/temperament_loyal"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Loyal" />
+                <CheckBox
+                    android:id="@+id/temperament_independent"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Independent"/>
+                <CheckBox
+                    android:id="@+id/temperament_playful"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Playful"/>
+                <CheckBox
+                    android:id="@+id/temperament_active"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Active"/>
+                <CheckBox
+                    android:id="@+id/temperament_intelligent"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Intelligent"/>
+                <CheckBox
+                    android:id="@+id/temperament_affectionate"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Affectionate"/>
+            </com.google.android.flexbox.FlexboxLayout>
+
 
             <!-- The search button, wrapped in a linear layout to prevent stacking issues -->
             <LinearLayout
                 android:id="@+id/button_wrapper"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_below="@+id/layout_row1"
+                android:layout_below="@+id/layout_row2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Button

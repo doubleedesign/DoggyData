@@ -43,4 +43,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-vision:20.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.aryarohit07:picasso-facedetection-transformation:0.3.0'
+    implementation 'com.google.android:flexbox:2.0.1'
 }
