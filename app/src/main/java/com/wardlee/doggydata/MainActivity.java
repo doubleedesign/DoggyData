@@ -10,10 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import com.google.android.gms.vision.text.Line;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout activityLayout;
     private EditText weightInput;
     private EditText heightInput;
+    private LinearLayout heightWrapper;
 
     // onCreate method, let's get this show on the road
     @Override
@@ -55,9 +59,31 @@ public class MainActivity extends AppCompatActivity {
         // Assign the activity layout
         activityLayout = findViewById(R.id.layout_mainActivity);
 
-        // Assign the input fields
+        // Assign layout item wrappers (used for showing/hiding layout elements)
+        heightWrapper = findViewById(R.id.layout_heightwrapper);
+
+        // Assign the input fields (used for getting data)
         weightInput = findViewById(R.id.editText_weight);
         heightInput = findViewById(R.id.editText_height);
+
+        // Add a listener for spinner change to show/hide layout elements according to breed
+        speciesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String selectedSpecies = parent.getItemAtPosition(position).toString();
+                if(selectedSpecies.equals("Doggy")) {
+                    heightWrapper.setVisibility(View.VISIBLE);
+                }
+                else if(selectedSpecies.equals("Kitty")) {
+                    heightWrapper.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
 

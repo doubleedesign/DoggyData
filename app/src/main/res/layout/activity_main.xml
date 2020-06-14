@@ -63,51 +63,66 @@
                 android:layout_marginBottom="30dp" />
 
 
-            <!-- The label for the weight field -->
-            <TextView
-                android:id="@+id/textView_weightLabel"
+            <!--First row of criteria-->
+            <LinearLayout
+                android:id="@+id/layout_row1"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/spinner_species"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="Approx. weight (kg)" />
+                android:layout_below="@id/spinner_species">
 
-            <!-- The weight input -->
-            <EditText
-                android:id="@+id/editText_weight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_weightLabel"
-                android:ems="16"
-                android:inputType="numberDecimal"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp"/>
-
-            <!-- The label for the height field -->
-            <TextView
-                android:id="@+id/textView_heightLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editText_weight"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="Approx. height (cm) - doggies only" />
-
-            <!-- The height input -->
-            <EditText
-                android:id="@+id/editText_height"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView_heightLabel"
-                android:ems="16"
-                android:inputType="numberDecimal"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="30dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight="50"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <!-- The label for the weight field -->
+                    <TextView
+                        android:id="@+id/textView_weightLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Approx. weight (kg)" />
+                    <!-- The weight input -->
+                    <EditText
+                        android:id="@+id/editText_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="30dp"
+                        android:ems="16"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_heightwrapper"
+                    android:orientation="vertical"
+                    android:layout_weight="50"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <!-- The label for the height field -->
+                    <TextView
+                        android:id="@+id/textView_heightLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:text="Approx. height (cm)" />
+                    <!-- The height input -->
+                    <EditText
+                        android:id="@+id/editText_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="16"
+                        android:inputType="numberDecimal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="30dp"/>
+                </LinearLayout>
+            </LinearLayout>
 
 
             <!-- The search button, wrapped in a linear layout to prevent stacking issues -->
@@ -115,10 +130,9 @@
                 android:id="@+id/button_wrapper"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_below="@+id/editText_height"
+                android:layout_below="@+id/layout_row1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <Button
                     android:id="@+id/button_search"
                     android:layout_width="wrap_content"
@@ -138,6 +152,7 @@
             </LinearLayout>
 
         </RelativeLayout>
+
 
         <!--Fragment placeholder for the RecyclerView that holds the list of breeds-->
         <FrameLayout
