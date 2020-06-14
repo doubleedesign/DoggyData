@@ -284,8 +284,6 @@ public class BreedlistFragment extends Fragment {
                             // Then add this dog/cat to the list that the RecyclerView will use
                             // TODO: Allow for empty values
                             if(species.equals("Doggy")) {
-                                Log.d(TAG, weightMatch.toString());
-
                                 if(weightMatch && heightMatch) {
                                     Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
                                     petList.add(thisDog);
