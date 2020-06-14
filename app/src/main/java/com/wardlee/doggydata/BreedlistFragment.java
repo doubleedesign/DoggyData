@@ -295,7 +295,6 @@ public class BreedlistFragment extends Fragment {
                                     petList.add(thisCat);
                                 }
                             }
-
                         }
 
                         // If no results matched, then the pet list will be empty; show the no results message
@@ -305,7 +304,7 @@ public class BreedlistFragment extends Fragment {
                         // If results matched:
                         else {
                             // Create adapter, passing in the pet list
-                            BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext, thisFragmentActivity);
+                            BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, getActivity(), thisFragmentActivity);
 
                             // Attach the adapter to the recyclerview to populate items
                             thisRecyclerView.setAdapter(petAdapter);
