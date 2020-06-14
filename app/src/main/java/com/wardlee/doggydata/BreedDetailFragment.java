@@ -120,16 +120,14 @@ public class BreedDetailFragment extends Fragment {
                                 .transform(new FaceCenterCrop(ImageField.getWidth(), 500))
                                 .into(ImageField);
 
-                        // Show the image field after a short delay
-                        new Handler().postDelayed(() -> {
-                            ImageField.setVisibility(View.VISIBLE);
-                            ImageField.getLayoutParams().height = 500;
-                        }, 1000);
+                        // Show the image field
+                        ImageField.setVisibility(View.VISIBLE);
+                        ImageField.getLayoutParams().height = 500;
 
                         // Hide the loading screen (after a short delay because I want to show it for the purposes of this assignment)
                         new Handler().postDelayed(() -> {
                             view.findViewById(R.id.layout_imageLoadingPanel).setVisibility(View.GONE);
-                        }, 2000);
+                        }, 1000);
                     }
                     // If no image is found, hide the loading icon and change the text
                     else {
