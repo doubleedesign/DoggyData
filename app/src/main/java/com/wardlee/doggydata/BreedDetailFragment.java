@@ -3,6 +3,7 @@ package com.wardlee.doggydata;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,10 +76,11 @@ public class BreedDetailFragment extends Fragment {
             OriginWrapper.setVisibility(view.GONE);
         }
 
+        // Initially hide the image field (so the loading icon will show)
+        ImageField.setVisibility(View.VISIBLE);
+
         // Get an image from the API and populate the image field
         String JSON_URL = "https://api.thedogapi.com/v1/images/search?breed_id=" + petObject.getApi_Id() + "&api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
-
-        // Create the request
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
 
             @Override
@@ -100,6 +102,16 @@ public class BreedDetailFragment extends Fragment {
                                 .centerCrop()
                                 .into(ImageField);
                     }
+
+                    // Show the image field after a short delay
+                    new Handler().postDelayed(() -> {
+                        ImageField.setVisibility(View.VISIBLE);
+                    }, 1000);
+
+                    // Hide the loading screen (after a short delay because I want to show it for the purposes of this assignment)
+                    new Handler().postDelayed(() -> {
+                        view.findViewById(R.id.layout_imageLoadingPanel).setVisibility(View.GONE);
+                    }, 2000);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

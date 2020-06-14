@@ -3,6 +3,7 @@ package com.wardlee.doggydata;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,8 +78,19 @@ public class BreedlistFragment extends Fragment {
         // Find the RecyclerView
         thisRecyclerView = view.findViewById(R.id.rv_breeds);
 
-        // Load dogs into the RecyclerView
+        // Initially hide it (to show the loading screen)
+        view.findViewById(R.id.rv_breeds).setVisibility(View.GONE);
+
+        // Load dogs into the RecyclerView and show it after a short delay
         loadDogs(thisRecyclerView);
+        new Handler().postDelayed(() -> {
+            view.findViewById(R.id.rv_breeds).setVisibility(View.VISIBLE);
+        }, 1000);
+
+        // Hide the loading screen (after a short delay because I want to show it for the purposes of this assignment)
+        new Handler().postDelayed(() -> {
+            view.findViewById(R.id.layout_loadingPanel).setVisibility(View.GONE);
+        }, 2000);
     }
 
 
@@ -213,7 +225,6 @@ public class BreedlistFragment extends Fragment {
 
                     // Add a basic divider between the items
                     thisRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();

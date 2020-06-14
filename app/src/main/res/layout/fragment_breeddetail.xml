@@ -6,6 +6,28 @@
     android:background="#FFF"
     >
 
+    <!--Loading icon for the imageview-->
+    <LinearLayout
+        android:id="@+id/layout_imageLoadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#FFF">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"
+            android:text="Getting image from the API..." />
+    </LinearLayout>
+
     <!--Image-->
     <ImageView
         android:id="@+id/imageView_breedImage"

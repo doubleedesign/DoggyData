@@ -6,6 +6,28 @@
     android:background="#FFF"
     >
 
+    <!--Loading screen-->
+    <LinearLayout
+        android:id="@+id/layout_loadingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#FFF">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"
+            android:text="Loading breeds..." />
+    </LinearLayout>
+
     <!--RecyclerView list of breeds-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_breeds"
