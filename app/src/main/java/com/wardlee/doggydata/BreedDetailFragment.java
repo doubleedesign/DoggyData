@@ -131,8 +131,8 @@ public class BreedDetailFragment extends Fragment {
                             view.findViewById(R.id.layout_imageLoadingPanel).setVisibility(View.GONE);
                         }, 2000);
                     }
+                    // If no image is found, hide the loading icon and change the text
                     else {
-                        // Hide the loading icon and change the text if no image is found
                         ProgressBar loadingIcon = view.findViewById(R.id.layout_imageLoadingPanel_icon);
                         TextView loadingText = view.findViewById(R.id.layout_imageLoadingPanel_text);
                         loadingIcon.setVisibility(View.GONE);
