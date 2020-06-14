@@ -135,18 +135,22 @@
 
 
     <!--The API credit-->
-    <TextView
-        android:id="@+id/textView_credit"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_DetailWrapper"
-        android:paddingBottom="15dp"
-        android:layout_marginTop="30dp"
-        android:textSize="12sp"
-        android:textColor="#999"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:layout_gravity="bottom"
-        />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom">
+        <TextView
+            android:id="@+id/textView_credit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:paddingTop="30dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:textSize="12sp"
+            android:textColor="#999"
+            />
+    </LinearLayout>
 
 </LinearLayout>
