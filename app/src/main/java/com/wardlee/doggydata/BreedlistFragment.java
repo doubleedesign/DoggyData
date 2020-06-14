@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class BreedlistFragment extends Fragment {
     // Tag for debugging
@@ -42,6 +43,7 @@ public class BreedlistFragment extends Fragment {
     // Variables to be passed in from the activity or fragment calling this
     private Context thisContext;
     private String SelectedSpecies;
+    private Map SearchCriteria;
 
     // Other variable initialisations
     private RecyclerView thisRecyclerView;
@@ -52,9 +54,10 @@ public class BreedlistFragment extends Fragment {
     /**
      * Constructor
      */
-    public BreedlistFragment(Context context, String species) {
+    public BreedlistFragment(Context context, String species, Map search) {
         thisContext = context;
         SelectedSpecies = species;
+        SearchCriteria = search;
     }
 
     @Override
@@ -99,6 +102,8 @@ public class BreedlistFragment extends Fragment {
         new Handler().postDelayed(() -> {
             view.findViewById(R.id.layout_loadingPanel).setVisibility(View.GONE);
         }, 2000);
+
+        Log.d(TAG, SearchCriteria.toString());
     }
 
 

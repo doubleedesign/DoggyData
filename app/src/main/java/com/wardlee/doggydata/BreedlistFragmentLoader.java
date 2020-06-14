@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class BreedlistFragmentLoader {
     // Tag for debugging
@@ -35,14 +36,16 @@ public class BreedlistFragmentLoader {
     // Variables to be passed in from the activity or fragment calling this
     private Context thisContext;
     private String SelectedSpecies;
+    private Map SearchCriteria;
 
 
     /**
      * Constructor
      */
-    public BreedlistFragmentLoader(Context context, String species) {
+    public BreedlistFragmentLoader(Context context, String species, Map search) {
         this.thisContext = context;
         SelectedSpecies = species;
+        SearchCriteria = search;
     }
 
 
@@ -53,7 +56,7 @@ public class BreedlistFragmentLoader {
     protected BreedlistFragment loadFragment(FragmentManager fragmentManager) {
 
         // Create a breed list fragment, passing in the selected species
-        BreedlistFragment listfragment = new BreedlistFragment(thisContext, SelectedSpecies);
+        BreedlistFragment listfragment = new BreedlistFragment(thisContext, SelectedSpecies, SearchCriteria);
 
         // Create a fragment transaction
         FragmentTransaction transaction = fragmentManager.beginTransaction();

@@ -10,8 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     // Declare variables for the interface fields, for later use
     private Spinner speciesSpinner;
     private LinearLayout activityLayout;
+    private EditText weightInput;
+    private EditText heightInput;
 
     // onCreate method, let's get this show on the road
     @Override
@@ -47,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Assign the activity layout
         activityLayout = findViewById(R.id.layout_mainActivity);
+
+        // Assign the input fields
+        weightInput = findViewById(R.id.editText_weight);
+        heightInput = findViewById(R.id.editText_height);
     }
 
 
@@ -56,8 +66,13 @@ public class MainActivity extends AppCompatActivity {
         // Get the species selection from the spinner
         String species = (String) speciesSpinner.getSelectedItem();
 
+        // Get the search criteria and put them in a hashmap
+        Map<String, String> searchCriteria = new HashMap<String, String>();
+        searchCriteria.put("weight", weightInput.getText().toString());
+        searchCriteria.put("height", heightInput.getText().toString());
+
         // Create the loader
-        BreedlistFragmentLoader loader = new BreedlistFragmentLoader(this, species);
+        BreedlistFragmentLoader loader = new BreedlistFragmentLoader(this, species, searchCriteria);
 
         // Load the fragment to show the breed list
         FragmentManager BreedlistManager = this.getSupportFragmentManager();
