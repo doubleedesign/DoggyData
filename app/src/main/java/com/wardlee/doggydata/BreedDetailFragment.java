@@ -39,6 +39,7 @@ public class BreedDetailFragment extends Fragment {
 
     Pet petObject;
     Context thisContext;
+    String Image_JSON_URL;
 
     public BreedDetailFragment(Pet pet) {
         petObject = pet;
@@ -64,12 +65,14 @@ public class BreedDetailFragment extends Fragment {
         TextView LifespanField = view.findViewById(R.id.textView_breedLifespan);
         TextView Credit = view.findViewById(R.id.textView_credit);
 
-        // Populate the credit field according to species
+        // Populate the credit field and set the image request URL according to species
         if(petObject instanceof Dog) {
             Credit.setText("Powered by TheDogAPI.com");
+            Image_JSON_URL = "https://api.thedogapi.com/v1/images/search?breed_id=" + petObject.getApi_Id() + "&api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
         }
         else if(petObject instanceof Cat) {
             Credit.setText("Powered by TheCatAPI.com");
+            Image_JSON_URL = "https://api.thecatapi.com/v1/images/search?breed_id=" + petObject.getApi_Id() + "&api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
         }
 
         // Populate the text fields with the pet object values
@@ -90,8 +93,7 @@ public class BreedDetailFragment extends Fragment {
         ImageField.setVisibility(View.VISIBLE);
 
         // Get an image from the API and populate the image field
-        String JSON_URL = "https://api.thecatapi.com/v1/images/search?breed_id=" + petObject.getApi_Id() + "&api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Image_JSON_URL, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -115,6 +117,7 @@ public class BreedDetailFragment extends Fragment {
                         // Show the image field after a short delay
                         new Handler().postDelayed(() -> {
                             ImageField.setVisibility(View.VISIBLE);
+                            ImageField.getLayoutParams().height = 500;
                         }, 1000);
 
                         // Hide the loading screen (after a short delay because I want to show it for the purposes of this assignment)

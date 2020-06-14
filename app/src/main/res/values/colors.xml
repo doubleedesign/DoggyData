@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Ref: https://www.materialpalette.com/pink/lime-->
 <resources>
-    <color name="colorPrimary">#222</color>
-    <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#00BCD4</color>
+    <color name="colorPrimary">#e91e63</color>
+    <color name="colorPrimaryDark">#c2185b</color>
+    <color name="colorPrimaryLight">#F8BBD0</color>
+    <color name="colorSecondary">#03A9F4</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorAccent">#cddc39</color>
+    <color name="colorAccentLight">#f0f4c3</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
 </resources>

@@ -6,10 +6,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Declare variables for the interface fields, for later use
     private Spinner speciesSpinner;
+    private LinearLayout activityLayout;
 
     // onCreate method, let's get this show on the road
     @Override
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         // Find the species spinner and set it to use the unit list adapter
         speciesSpinner = findViewById(R.id.spinner_species);
         speciesSpinner.setAdapter(speciesListAdapter);
+
+        // Assign the activityLayout element
+        activityLayout = findViewById(R.id.layout_mainActivity);
     }
 
 
