@@ -134,12 +134,12 @@
 
     <!--The API credit-->
     <TextView
+        android:id="@+id/textView_credit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_DetailWrapper"
         android:paddingBottom="15dp"
         android:layout_marginTop="30dp"
-        android:text="Powered by TheDogAPI.com"
         android:textSize="12sp"
         android:textColor="#999"
         android:paddingStart="15dp"

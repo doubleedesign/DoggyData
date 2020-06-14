@@ -61,6 +61,15 @@ public class BreedDetailFragment extends Fragment {
         TextView OriginField = view.findViewById(R.id.textView_breedOrigin);
         TextView WeightField = view.findViewById(R.id.textView_breedWeight);
         TextView LifespanField = view.findViewById(R.id.textView_breedLifespan);
+        TextView Credit = view.findViewById(R.id.textView_credit);
+
+        // Populate the credit field according to species
+        if(petObject instanceof Dog) {
+            Credit.setText("Powered by TheDogAPI.com");
+        }
+        else if(petObject instanceof Cat) {
+            Credit.setText("Powered by TheCatAPI.com");
+        }
 
         // Populate the text fields with the pet object values
         LabelField.setText(petObject.getName());
@@ -80,7 +89,7 @@ public class BreedDetailFragment extends Fragment {
         ImageField.setVisibility(View.VISIBLE);
 
         // Get an image from the API and populate the image field
-        String JSON_URL = "https://api.thedogapi.com/v1/images/search?breed_id=" + petObject.getApi_Id() + "&api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
+        String JSON_URL = "https://api.thecatapi.com/v1/images/search?breed_id=" + petObject.getApi_Id() + "&api_key=ea7d3e22-d28a-427f-a71b-5d29db2bc67d";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL, new Response.Listener<String>() {
 
             @Override
