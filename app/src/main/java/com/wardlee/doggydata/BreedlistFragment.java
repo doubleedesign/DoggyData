@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -47,6 +48,7 @@ public class BreedlistFragment extends Fragment {
 
     // Other variable initialisations
     private RecyclerView thisRecyclerView;
+    private LinearLayout NoResultsMessage;
     private FragmentManager BreedFragmentManager;
     private FragmentActivity thisFragmentActivity;
 
@@ -79,6 +81,9 @@ public class BreedlistFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        // Find the no results message (initially hidden)
+        NoResultsMessage = view.findViewById(R.id.layout_noResultsMessage);
 
         // Find the RecyclerView
         thisRecyclerView = view.findViewById(R.id.rv_breeds);
@@ -225,29 +230,32 @@ public class BreedlistFragment extends Fragment {
                         //int searchheight = (int) SearchCriteria.get("height");
                         if(MinWeight >= searchWeight && searchWeight <= MaxWeight) {
                             weightMatch = true;
-                            Log.d(TAG, breedName + " is a weight match");
                         }
 
                         // Create a Dog object (our dog class object, not the JSON object) if search criteria are met
+                        // Then add this dog to the list that the RecyclerView will use
                         if(weightMatch) {
                             Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
-
-                            // Add this dog to the list that the RecyclerView will use
                             petList.add(thisDog);
                         }
                     }
 
-                    // Create adapter, passing in the pet list
-                    BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext, thisFragmentActivity);
+                    if(petList.isEmpty()) {
+                        NoResultsMessage.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        // Create adapter, passing in the pet list
+                        BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext, thisFragmentActivity);
 
-                    // Attach the adapter to the recyclerview to populate items
-                    thisRecyclerView.setAdapter(petAdapter);
+                        // Attach the adapter to the recyclerview to populate items
+                        thisRecyclerView.setAdapter(petAdapter);
 
-                    // Set layout manager to position the items
-                    thisRecyclerView.setLayoutManager(new LinearLayoutManager(thisContext));
+                        // Set layout manager to position the items
+                        thisRecyclerView.setLayoutManager(new LinearLayoutManager(thisContext));
 
-                    // Add a basic divider between the items
-                    thisRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+                        // Add a basic divider between the items
+                        thisRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -380,24 +388,38 @@ public class BreedlistFragment extends Fragment {
                             //TemperamentTerms = (ArrayList<String>) Arrays.asList(TemperamentTermsString.split(","));
                         }
 
-                        // Create a Dog object (our dog class object, not the JSON object)
-                        Cat thisCat = new Cat(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
+                        // Check against search criteria
+                        Boolean weightMatch = false;
+                        int searchWeight = Integer.parseInt(SearchCriteria.get("weight").toString());
+                        if(MinWeight >= searchWeight && searchWeight <= MaxWeight) {
+                            weightMatch = true;
+                            Log.d(TAG, breedName + " is a match");
+                        }
 
-                        // Add this dog to the list that the RecyclerView will use
-                        petList.add(thisCat);
+                        // Create a Cat object (our cat class object, not the JSON object) if search criteria are met
+                        // Then add this cat to the list that the RecyclerView will use
+                        if(weightMatch) {
+                            Cat thisCat = new Cat(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
+                            petList.add(thisCat);
+                        }
                     }
 
-                    // Create adapter, passing in the pet list
-                    BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext, thisFragmentActivity);
+                    if(petList.isEmpty()) {
+                        NoResultsMessage.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        // Create adapter, passing in the pet list
+                        BreedListItemAdapter petAdapter = new BreedListItemAdapter(petList, thisContext, thisFragmentActivity);
 
-                    // Attach the adapter to the recyclerview to populate items
-                    thisRecyclerView.setAdapter(petAdapter);
+                        // Attach the adapter to the recyclerview to populate items
+                        thisRecyclerView.setAdapter(petAdapter);
 
-                    // Set layout manager to position the items
-                    thisRecyclerView.setLayoutManager(new LinearLayoutManager(thisContext));
+                        // Set layout manager to position the items
+                        thisRecyclerView.setLayoutManager(new LinearLayoutManager(thisContext));
 
-                    // Add a basic divider between the items
-                    thisRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+                        // Add a basic divider between the items
+                        thisRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

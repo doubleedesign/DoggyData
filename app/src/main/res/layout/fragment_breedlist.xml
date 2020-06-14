@@ -37,6 +37,25 @@
         android:background="#FFF"
         />
 
+    <!--No results message-->
+    <LinearLayout
+        android:id="@+id/layout_noResultsMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#FFF"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Sorry, no results" />
+    </LinearLayout>
+
     <!--Fragment placeholder to load the detail view into-->
     <FrameLayout
         android:id="@+id/fragment_detailPlaceholder"
