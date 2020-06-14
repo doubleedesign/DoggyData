@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+
 
 public class MainActivity extends AppCompatActivity {
     // Tag for debugging
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         speciesSpinner = findViewById(R.id.spinner_species);
         speciesSpinner.setAdapter(speciesListAdapter);
 
-        // Assign the activityLayout element
+        // Assign the activity layout
         activityLayout = findViewById(R.id.layout_mainActivity);
     }
 

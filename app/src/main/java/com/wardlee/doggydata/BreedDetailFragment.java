@@ -25,6 +25,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.rohitarya.picasso.facedetection.transformation.FaceCenterCrop;
+import com.rohitarya.picasso.facedetection.transformation.core.PicassoFaceDetector;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -55,6 +57,9 @@ public class BreedDetailFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         thisContext = view.getContext();
+
+        // Initialise the face detection library
+        PicassoFaceDetector.initialize(thisContext);
 
         // The layout elements
         ImageView ImageField = view.findViewById(R.id.imageView_breedImage);
@@ -111,7 +116,8 @@ public class BreedDetailFragment extends Fragment {
                         Picasso.get()
                                 .load(imageURL)
                                 .fit()
-                                .centerCrop()
+                                .centerInside()
+                                .transform(new FaceCenterCrop(ImageField.getWidth(), 500))
                                 .into(ImageField);
 
                         // Show the image field after a short delay
@@ -149,5 +155,13 @@ public class BreedDetailFragment extends Fragment {
 
         // Add the string request to request queue
         requestQueue.add(stringRequest);
+    }
+
+
+    @Override
+    public void onStop() {
+        // Release the face detector so it doesn't go nuts with resources
+        super.onStop();
+        PicassoFaceDetector.releaseDetector();
     }
 }
