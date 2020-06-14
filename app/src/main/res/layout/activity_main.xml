@@ -47,20 +47,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:text="Species" />
-
             <!-- The species selection -->
             <Spinner
                 android:id="@+id/spinner_species"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_below="@+id/textView_speciesLabel"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginBottom="30dp" />
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/spinner_border"/>
 
 
             <!--First row of criteria-->
@@ -69,7 +69,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/spinner_species">
+                android:layout_below="@id/spinner_species"
+                android:layout_marginBottom="20dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -83,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:text="Approx. weight (kg)" />
                     <!-- The weight input -->
                     <EditText
@@ -92,7 +93,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="30dp"
                         android:ems="16"
                         android:inputType="numberDecimal" />
                 </LinearLayout>
@@ -107,9 +107,9 @@
                         android:id="@+id/textView_heightLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="5dp"
                         android:text="Approx. height (cm)" />
                     <!-- The height input -->
                     <EditText
@@ -119,8 +119,7 @@
                         android:ems="16"
                         android:inputType="numberDecimal"
                         android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="30dp"/>
+                        android:layout_marginEnd="10dp" />
                 </LinearLayout>
             </LinearLayout>
 
