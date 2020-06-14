@@ -102,8 +102,6 @@ public class BreedlistFragment extends Fragment {
         new Handler().postDelayed(() -> {
             view.findViewById(R.id.layout_loadingPanel).setVisibility(View.GONE);
         }, 2000);
-
-        Log.d(TAG, SearchCriteria.toString());
     }
 
 
@@ -220,11 +218,23 @@ public class BreedlistFragment extends Fragment {
                             //TemperamentTerms = (ArrayList<String>) Arrays.asList(TemperamentTermsString.split(","));
                         }
 
-                        // Create a Dog object (our dog class object, not the JSON object)
-                        Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
+                        // Check against search criteria
+                        Boolean weightMatch = false;
+                        //Boolean heightMatch = false;
+                        int searchWeight = Integer.parseInt(SearchCriteria.get("weight").toString());
+                        //int searchheight = (int) SearchCriteria.get("height");
+                        if(MinWeight >= searchWeight && searchWeight <= MaxWeight) {
+                            weightMatch = true;
+                            Log.d(TAG, breedName + " is a weight match");
+                        }
 
-                        // Add this dog to the list that the RecyclerView will use
-                        petList.add(thisDog);
+                        // Create a Dog object (our dog class object, not the JSON object) if search criteria are met
+                        if(weightMatch) {
+                            Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
+
+                            // Add this dog to the list that the RecyclerView will use
+                            petList.add(thisDog);
+                        }
                     }
 
                     // Create adapter, passing in the pet list
