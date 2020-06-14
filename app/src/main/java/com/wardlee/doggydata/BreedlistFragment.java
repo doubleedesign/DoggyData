@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -69,6 +70,9 @@ public class BreedlistFragment extends Fragment {
         // Find the fragment placeholder and bring it to the front
         FrameLayout thisFragment = getActivity().findViewById(R.id.fragment_listPlaceholder);
         thisFragment.bringToFront();
+
+        // Hide the keyboard
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         // Define the layout file for the fragment
         return inflater.inflate(R.layout.fragment_breedlist, parent, false);
