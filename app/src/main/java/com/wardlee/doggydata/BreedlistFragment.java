@@ -148,6 +148,8 @@ public class BreedlistFragment extends Fragment {
                             // Initialise fields with default values
                             String breedName = "";
                             String origin = "";
+                            String breedGroup = "";
+                            String bredFor = "";
                             String id = "";
                             String[] weightValues = null;
                             String[] heightValues = null;
@@ -172,6 +174,12 @@ public class BreedlistFragment extends Fragment {
                             }
                             if (petObject.has("id")) {
                                 id = petObject.getString("id");
+                            }
+                            if (petObject.has("breed_group")) {
+                                breedGroup = petObject.getString("breed_group");
+                            }
+                            if (petObject.has("bred_for")) {
+                                bredFor = petObject.getString("bred_for");
                             }
 
                             // Get the weight from the object,
@@ -298,7 +306,7 @@ public class BreedlistFragment extends Fragment {
                             // TODO: Allow for empty values
                             if(species.equals("Doggy")) {
                                 if(weightMatch && heightMatch && temperamentMatch) {
-                                    Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms);
+                                    Dog thisDog = new Dog(breedName, id, MinWeight, MaxWeight, MinHeight, MaxHeight, LifeSpanMin, LifeSpanMax, origin, TemperamentTerms, breedGroup, bredFor);
                                     petList.add(thisDog);
                                 }
                             }

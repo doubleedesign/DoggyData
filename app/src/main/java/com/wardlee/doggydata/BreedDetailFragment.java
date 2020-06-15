@@ -66,7 +66,13 @@ public class BreedDetailFragment extends Fragment {
         TextView LabelField = view.findViewById(R.id.textView_breedDetailTitle);
         LinearLayout OriginWrapper = view.findViewById(R.id.LinearLayout_breedOriginWrapper);
         TextView OriginField = view.findViewById(R.id.textView_breedOrigin);
+        LinearLayout PurposeWrapper = view.findViewById(R.id.LinearLayout_bredForWrapper);
+        TextView PurposeField = view.findViewById(R.id.textView_bredFor);
+        LinearLayout BreedGroupWrapper = view.findViewById(R.id.LinearLayout_breedGroupWrapper);
+        TextView BreedGroupField = view.findViewById(R.id.textView_breedGroup);
         TextView WeightField = view.findViewById(R.id.textView_breedWeight);
+        LinearLayout HeightFieldWrapper = view.findViewById(R.id.LinearLayout_breedHeightWrapper);
+        TextView HeightField = view.findViewById(R.id.textView_breedHeight);
         TextView LifespanField = view.findViewById(R.id.textView_breedLifespan);
         TextView TemperamentField = view.findViewById(R.id.textView_temperament);
         TextView Credit = view.findViewById(R.id.textView_credit);
@@ -86,13 +92,45 @@ public class BreedDetailFragment extends Fragment {
         WeightField.setText(petObject.getMinWeight() + "-" + petObject.getMaxWeight() + "kg");
         LifespanField.setText(petObject.getMinLifespan() + "-" + petObject.getMaxLifespan() + " years");
 
-        // Check if origin field is set, if it isn't then hide the field and label
+        // Check if origin field is set, if it isn't then hide the fields and label
         String origin = petObject.getOrigin();
         if(!origin.isEmpty()) {
-            OriginField.setText(petObject.getOrigin());
+            OriginField.setText(origin);
         }
         else {
             OriginWrapper.setVisibility(view.GONE);
+        }
+
+        // Handle dog-specific fields
+        if(petObject instanceof Dog) {
+            // TODO this casting doesn't seem very efficient
+            Dog dogObject = (Dog) petObject;
+            String bredFor = dogObject.getPurpose();
+            String breedGroup = dogObject.getBreedGroup();
+
+            HeightField.setText(dogObject.getMinHeight() + "-" + dogObject.getMaxHeight() + "kg");
+
+            if(!bredFor.isEmpty()) {
+                PurposeField.setText(dogObject.getPurpose());
+            }
+            else {
+                PurposeWrapper.setVisibility(view.GONE);
+            }
+
+            if(!breedGroup.isEmpty()) {
+                BreedGroupField.setText(dogObject.getBreedGroup());
+            }
+            else {
+                BreedGroupWrapper.setVisibility(view.GONE);
+            }
+        }
+
+        // Handle cat-specific fields
+        if(petObject instanceof Cat) {
+            Cat catObject = (Cat) petObject;
+            PurposeWrapper.setVisibility(view.GONE);
+            BreedGroupWrapper.setVisibility(view.GONE);
+            HeightFieldWrapper.setVisibility(view.GONE);
         }
 
         // Populate the temperament field
